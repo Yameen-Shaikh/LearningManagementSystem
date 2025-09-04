@@ -29,3 +29,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+def subject_list(request):
+    return render(request, 'subject_list.html')
