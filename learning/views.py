@@ -47,5 +47,11 @@ def level_select(request, subject_id):
 
 @login_required
 def chapter_list(request, subject_id, level):
+    subject = get_object_or_404(Subject, pk=subject_id)
+    chapters = Chapter.objects.filter(subject=subject, level=level)
+    return render(request, 'chapter_list.html', {'subject': subject, 'level': level, 'chapters': chapters})
+
+@login_required
+def topic_list(request, chapter_id):
     # Dummy view
     return render(request, 'base.html')

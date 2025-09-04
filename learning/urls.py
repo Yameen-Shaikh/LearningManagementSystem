@@ -8,4 +8,5 @@ urlpatterns = [
     path('subjects/', views.subject_list, name='subject_list'),
     path('subject/<int:subject_id>/', views.level_select, name='level_select'),
     path('subject/<int:subject_id>/level/<int:level>/', views.chapter_list, name='chapter_list'),
+    path('chapter/<int:chapter_id>/', views.topic_list, name='topic_list'),
 ]
