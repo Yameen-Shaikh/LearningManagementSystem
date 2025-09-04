@@ -8,20 +8,33 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav>
-        <ul>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">LMS</a>
+        <div class="navbar-nav">
             {% if user.is_authenticated %}
-                <li><span>Welcome, {{ user.username }}</span></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <span class="nav-item">Welcome, {{ user.username }}</span>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
             {% else %}
-                <li><a href="{% url 'register' %}">Register</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
             {% endif %}
-        </ul>
+        </div>
     </nav>
-    <main>
-        {% block content %}
-        {% endblock %}
+    <main class="main-content">
+        <div class="container">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
+    <footer class="footer">
+        <p>&copy; 2025 LMS. All rights reserved.</p>
+    </footer>
 </body>
 </html>

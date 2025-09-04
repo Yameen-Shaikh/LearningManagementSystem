@@ -1,0 +1,219 @@
+/* Theme Guide CSS */
+
+/* Base Colors */
+:root {
+  --primary-background: #121214;
+  --surface-panels-1: #1E1E2E;
+  --surface-panels-2: #2E2E40;
+  --text-primary: #E0E0E0;
+  --text-secondary: #A0A0A0;
+  --text-tertiary: #6B6B6B;
+  --accent-1: #C25AFF;
+  --accent-2: #00D1D5;
+  --success: #2ECC71;
+  --warning: #E67E22;
+  --error: #E74C3C;
+  --divider: #3A3A50;
+}
+
+/* Typography */
+body {
+  font-family: 'Inter', 'Poppins', 'Roboto', sans-serif;
+  background-color: var(--primary-background);
+  color: var(--text-primary);
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+h1 { font-size: 24px; }
+h2 { font-size: 22px; }
+h3 { font-size: 20px; }
+h4 { font-size: 18px; }
+h5 { font-size: 16px; }
+h6 { font-size: 14px; }
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent-2);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--accent-1);
+}
+
+/* Layout & Spacing */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 0;
+}
+
+/* Components */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--accent-1);
+  color: white;
+  box-shadow: 0 4px 15px rgba(194, 90, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #d67aff;
+  box-shadow: 0 6px 20px rgba(194, 90, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--accent-2);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 209, 213, 0.3);
+}
+
+.btn-secondary:hover {
+  background-color: #00e0e6;
+  box-shadow: 0 6px 20px rgba(0, 209, 213, 0.5);
+  transform: translateY(-2px);
+}
+
+.card {
+  background-color: var(--surface-panels-1);
+  padding: 24px;
+  margin: 16px auto; /* Centered horizontally */
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  max-width: 600px; /* Limit card width */
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--divider);
+  margin: 24px 0;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--surface-panels-1);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-item .nav-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+  color: var(--accent-2);
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--surface-panels-2);
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 3px rgba(194, 90, 255, 0.2);
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the form content horizontally */
+  max-width: 400px; /* Limit the width of the form for better appearance */
+  margin: 0 auto; /* Center the form itself within the card */
+}
+
+.card form .form-group {
+  width: 100%; /* Ensure form groups take full width within the limited form width */
+}
+
+/* Footer */
+.footer {
+  background-color: var(--surface-panels-1);
+  color: var(--text-secondary);
+  padding: 16px 24px;
+  text-align: center;
+  margin-top: auto;
+  font-size: 12px;
+}
+
+/* Messages */
+.messages {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.messages li {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  color: white;
+}
+
+.messages li.success {
+  background-color: var(--success);
+}
+
+.messages li.warning {
+  background-color: var(--warning);
+}
+
+.messages li.error {
+  background-color: var(--error);
+}
