@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <a class="navbar-brand" href="/">LMS</a>
+        <a class="navbar-brand" href="{% url 'subject_list' %}">LMS</a>
         <div class="navbar-nav">
             {% if user.is_authenticated %}
                 <span class="nav-item">Welcome, {{ user.username }}</span>

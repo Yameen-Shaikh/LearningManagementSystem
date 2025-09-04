@@ -1,16 +1,20 @@
 # Project Status
 
-- Created `base.html` as the main template.
-- The `base.html` template includes a navigation bar.
-- The navigation bar displays "Register" and "Login" links for unauthenticated users.
-- For authenticated users, the navbar shows the username and a "Logout" link.
-- A `{% block content %}` is included in `base.html` for child templates.
-- The template is linked to `static/css/style.css`.
-- Verified that `register`, `login`, and `logout` URLs are defined in `learning/urls.py`.
-- Installed Django and applied database migrations.
-- Applied a new dark theme to `static/css/style.css` with custom colors, typography, layout, and component styling.
-- Updated `base.html` to use the new CSS classes for navigation, main content, and footer.
-- Updated `subject_list.html` to use the new card-based layout for displaying subjects.
-- Updated `registration/login.html` and `registration/register.html` to use the new form styling with `form-group` and `form-control` classes.
-- Centered input boxes within forms by applying `flexbox` properties to the form elements in `static/css/style.css`.
-- Centered the `.card` element horizontally on the page by setting `margin: 16px auto;` and `max-width: 600px;` in `static/css/style.css`.
+- Created `base.html` as the main template with a navigation bar.
+- The navigation bar is responsive to user authentication status.
+- A dark theme is implemented in `static/css/style.css`.
+- User registration and login are functional with custom forms and styling.
+- Success messages are displayed after user registration.
+- The main landing page for logged-in users (`subject_list.html`) displays a list of subjects.
+- The subject list is fetched dynamically from the database by the `subject_list` view.
+- Users can select a subject and are then presented with a list of levels for that subject (`level_select.html`).
+- The levels are dynamically fetched by the `level_select` view.
+- After selecting a level, users are shown a list of chapters for that subject and level (`chapter_list.html`).
+- The chapters are dynamically fetched by the `chapter_list` view.
+- The final content page (`topic_list.html`) displays the topics and associated resource links for a selected chapter.
+- The topics and links are dynamically fetched by the `topic_list` view.
+- All views are protected by `@login_required` where necessary.
+- App-level URLs are defined in `learning/urls.py`.
+- Project-level URLs in `lms_project/urls.py` include the app-level URLs.
+- The `navbar-brand` link now redirects to the `subject_list` page.
+- Styling for messages and form errors has been added.
