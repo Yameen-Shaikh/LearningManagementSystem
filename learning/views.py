@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Subject, Chapter
+from .models import Subject, Chapter, Topic
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 def register_view(request):
@@ -53,5 +53,6 @@ def chapter_list(request, subject_id, level):
 
 @login_required
 def topic_list(request, chapter_id):
-    # Dummy view
-    return render(request, 'base.html')
+    chapter = get_object_or_404(Chapter.objects.prefetch_related('topic_set__links'), pk=chapter_id)
+    topics = chapter.topic_set.all()
+    return render(request, 'topic_list.html', {'chapter': chapter, 'topics': topics})

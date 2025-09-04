@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <h2>{{ chapter.name }}</h2>
+    {% if topics %}
+      {% for topic in topics %}
+        <div class="topic">
+          <h4>{{ topic.name }}</h4>
+          {% if topic.links.all %}
+            <ul>
+              {% for link in topic.links.all %}
+                <li><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No links for this topic.</p>
+          {% endif %}
+        </div>
+        <hr>
+      {% endfor %}
+    {% else %}
+      <p>No topics found for this chapter.</p>
+    {% endif %}
+  </div>
+{% endblock %}
