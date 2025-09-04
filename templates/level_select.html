@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <h2>{{ subject.name }}</h2>
+    <h4>Select a Level</h4>
+    {% if levels %}
+      <div class="list-group">
+        {% for level in levels %}
+          <a href="{% url 'chapter_list' subject.id level %}" class="list-group-item list-group-item-action">
+            Level {{ level }}
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No levels found for this subject.</p>
+    {% endif %}
+  </div>
+{% endblock %}

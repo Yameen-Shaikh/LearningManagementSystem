@@ -7,7 +7,7 @@
       <div class="subject-list">
         {% for subject in subjects %}
           <div class="card">
-            <h3><a href="{% url 'level_selection' subject.id %}">{{ subject.name }}</a></h3>
+            <h3><a href="{% url 'level_select' subject.id %}">{{ subject.name }}</a></h3>
           </div>
         {% endfor %}
       </div>

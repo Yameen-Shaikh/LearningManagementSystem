@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Subject
+from .models import Subject, Chapter
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 def register_view(request):
@@ -39,6 +39,13 @@ def subject_list(request):
     subjects = Subject.objects.all()
     return render(request, 'subject_list.html', {'subjects': subjects})
 
-def level_selection(request, subject_id):
+@login_required
+def level_select(request, subject_id):
+    subject = get_object_or_404(Subject, pk=subject_id)
+    levels = Chapter.objects.filter(subject=subject).values_list('level', flat=True).distinct()
+    return render(request, 'level_select.html', {'subject': subject, 'levels': levels})
+
+@login_required
+def chapter_list(request, subject_id, level):
     # Dummy view
     return render(request, 'base.html')
