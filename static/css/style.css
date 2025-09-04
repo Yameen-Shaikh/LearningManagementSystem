@@ -217,3 +217,9 @@ hr {
 .messages li.error {
   background-color: var(--error);
 }
+
+.alert-danger {
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 4px;
+}

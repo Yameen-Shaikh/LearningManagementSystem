@@ -3,17 +3,15 @@
 {% block content %}
   <div class="card">
     <h2>Subjects</h2>
-    <p>This is the subject list page.</p>
-    <hr>
-    <div class="card">
-        <h3>Sample Subject 1</h3>
-        <p>This is a sample subject description.</p>
-        <a href="#" class="btn btn-secondary">View Details</a>
-    </div>
-    <div class="card">
-        <h3>Sample Subject 2</h3>
-        <p>This is another sample subject description.</p>
-        <a href="#" class="btn btn-secondary">View Details</a>
-    </div>
-  </div>
+    {% if subjects %}
+      <div class="subject-list">
+        {% for subject in subjects %}
+          <div class="card">
+            <h3><a href="{% url 'level_selection' subject.id %}">{{ subject.name }}</a></h3>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No subjects found.</p>
+    {% endif %}n  </div>
 {% endblock %}
