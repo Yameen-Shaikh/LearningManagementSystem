@@ -2,19 +2,25 @@
 
 - Created `base.html` as the main template with a navigation bar.
 - The navigation bar is responsive to user authentication status.
-- A dark theme is implemented in `static/css/style.css`.
+- A dark, kid-friendly theme is implemented in `static/css/style.css`.
 - User registration and login are functional with custom forms and styling.
 - Success messages are displayed after user registration.
-- The main landing page for logged-in users (`subject_list.html`) displays a list of subjects.
+- The main landing page for logged-in users (`subject_list.html`) displays a list of subjects in a responsive 3-column grid.
 - The subject list is fetched dynamically from the database by the `subject_list` view.
+- The subject cards have a wiggle animation on hover.
+- The font sizes on the subject page are responsive.
 - Users can select a subject and are then presented with a list of levels for that subject (`level_select.html`).
 - The levels are dynamically fetched by the `level_select` view.
+- The main card on the level select page has a wiggle animation on hover.
 - After selecting a level, users are shown a list of chapters for that subject and level (`chapter_list.html`).
 - The chapters are dynamically fetched by the `chapter_list` view.
+- The main card on the chapter list page has a wiggle animation on hover.
 - The final content page (`topic_list.html`) displays the topics and associated resource links for a selected chapter.
 - The topics and links are dynamically fetched by the `topic_list` view.
+- The main card on the topic list page has a wiggle animation on hover.
 - All views are protected by `@login_required` where necessary.
 - App-level URLs are defined in `learning/urls.py`.
 - Project-level URLs in `lms_project/urls.py` include the app-level URLs.
 - The `navbar-brand` link now redirects to the `subject_list` page.
 - Styling for messages and form errors has been added.
+- The footer has been removed.

@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="card">
+  <div class="header-container">
     <h2>Subjects</h2>
+  </div>
+  <div class="container">
     {% if subjects %}
-      <div class="subject-list">
+      <div class="subject-grid">
         {% for subject in subjects %}
-          <div class="card">
+          <div class="card subject-item-card">
             <h3><a href="{% url 'level_select' subject.id %}">{{ subject.name }}</a></h3>
           </div>
         {% endfor %}
       </div>
     {% else %}
       <p>No subjects found.</p>
-    {% endif %}n  </div>
+    {% endif %}
+  </div>
 {% endblock %}
