@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
+{% block navbar_title %}
+  <h2>{{ subject.name }}</h2>
+{% endblock %}
+
 {% block content %}
   <div class="card card-wiggle">
-    <h2>{{ subject.name }}</h2>
     <h4>Select a Level</h4>
     {% if levels %}
       <div class="list-group">

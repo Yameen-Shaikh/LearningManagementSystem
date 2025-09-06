@@ -24,3 +24,8 @@
 - The `navbar-brand` link now redirects to the `subject_list` page.
 - Styling for messages and form errors has been added.
 - The footer has been removed.
+- The navbar has been made slimmer.
+- The wiggle animation has been removed from the main cards on `level_select.html`, `chapter_list.html`, and `topic_list.html`.
+- The subject cards grid is centered with equal space on both left and right sides of the screen.
+- A background image has been added to the `subject_list.html` page only.
+- The `h2` element on the `level_select.html` page has been moved to the navbar and its font size matches the subject `h2` in the navbar.
