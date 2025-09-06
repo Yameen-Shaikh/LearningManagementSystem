@@ -9,4 +9,5 @@ urlpatterns = [
     path('subject/<int:subject_id>/', views.level_select, name='level_select'),
     path('subject/<int:subject_id>/level/<int:level>/', views.chapter_list, name='chapter_list'),
     path('chapter/<int:chapter_id>/', views.topic_list, name='topic_list'),
+    path('player/<str:video_id>/', views.video_player, name='video_player'),
 ]

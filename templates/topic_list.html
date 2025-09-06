@@ -5,46 +5,34 @@
 {% endblock %}
 
 {% block content %}
-<div class="topic-cards-container">
-    {% if topics %}
+<div class="center-card-container">
+    <div class="container">
         {% for topic in topics %}
-          <div class="card topic-card wiggle-on-load">
-            <h4 class="topic-name" style="cursor: pointer;">{{ topic.name }}</h4>
-            <div class="links" style="display: none;">
-              {% if topic.links.all %}
-                <ul>
-                  {% for link in topic.links.all %}
-                    <li><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></li>
-                  {% endfor %}
-                </ul>
-              {% else %}
-                <p>No links for this topic.</p>
-              {% endif %}
+            <div class="card topic-card">
+                <h4 class="topic-name">{{ topic.name }}</h4>
+                {% if topic.links.all %}
+                    <ul class="topic-list">
+                        {% for link in topic.links.all %}
+                            <li>
+                                <a href="javascript:void(0);" class="topic-list-item video-link" data-video-id="{{ link.video_id }}">
+                                    <div class="topic-list-thumbnail">
+                                        {% if link.thumbnail_url %}
+                                            <img src="{{ link.thumbnail_url }}" alt="{{ link.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="topic-list-content">
+                                        <h5>{{ link.title }}</h5>
+                                        <p>{{ link.description|truncatewords:20 }}</p>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No links for this topic.</p>
+                {% endif %}
             </div>
-          </div>
         {% endfor %}
-    {% else %}
-      <div class="card">
-        <p>No topics found for this chapter.</p>
-      </div>
-    {% endif %}
+    </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const topics = document.querySelectorAll('.topic-name');
-  topics.forEach(topic => {
-    topic.addEventListener('click', function() {
-      const links = this.nextElementSibling;
-      if (links.style.display === 'none' || links.style.display === '') {
-        links.style.display = 'block';
-      } else {
-        links.style.display = 'none';
-      }
-    });
-  });
-});
-</script>
 {% endblock %}
