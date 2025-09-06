@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-  <div class="card card-wiggle">
+<div class="center-card-container">
+  <div class="card wiggle-on-load">
     <h4>Select a Level</h4>
     {% if levels %}
       <div class="list-group">
@@ -19,4 +20,5 @@
       <p>No levels found for this subject.</p>
     {% endif %}
   </div>
+</div>
 {% endblock %}

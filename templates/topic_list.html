@@ -1,26 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="card card-wiggle">
+<div class="center-card-container">
+  <div class="card">
     <h2>{{ chapter.name }}</h2>
     {% if topics %}
-      {% for topic in topics %}
-        <div class="topic">
-          <h4>{{ topic.name }}</h4>
-          {% if topic.links.all %}
-            <ul>
-              {% for link in topic.links.all %}
-                <li><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p>No links for this topic.</p>
-          {% endif %}
-        </div>
-        <hr>
-      {% endfor %}
+      <div class="list-group">
+        {% for topic in topics %}
+          <div class="list-group-item">
+            <h4 class="topic-name" style="cursor: pointer;">{{ topic.name }}</h4>
+            <div class="links" style="display: none;">
+              {% if topic.links.all %}
+                <ul>
+                  {% for link in topic.links.all %}
+                    <li><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>No links for this topic.</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     {% else %}
       <p>No topics found for this chapter.</p>
     {% endif %}
   </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const topics = document.querySelectorAll('.topic-name');
+  topics.forEach(topic => {
+    topic.addEventListener('click', function() {
+      const links = this.nextElementSibling;
+      if (links.style.display === 'none' || links.style.display === '') {
+        links.style.display = 'block';
+      } else {
+        links.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
 {% endblock %}

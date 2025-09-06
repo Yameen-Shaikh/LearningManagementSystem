@@ -11,13 +11,10 @@
 - The font sizes on the subject page are responsive.
 - Users can select a subject and are then presented with a list of levels for that subject (`level_select.html`).
 - The levels are dynamically fetched by the `level_select` view.
-- The main card on the level select page has a wiggle animation on hover.
 - After selecting a level, users are shown a list of chapters for that subject and level (`chapter_list.html`).
 - The chapters are dynamically fetched by the `chapter_list` view.
-- The main card on the chapter list page has a wiggle animation on hover.
 - The final content page (`topic_list.html`) displays the topics and associated resource links for a selected chapter.
 - The topics and links are dynamically fetched by the `topic_list` view.
-- The main card on the topic list page has a wiggle animation on hover.
 - All views are protected by `@login_required` where necessary.
 - App-level URLs are defined in `learning/urls.py`.
 - Project-level URLs in `lms_project/urls.py` include the app-level URLs.
@@ -25,7 +22,13 @@
 - Styling for messages and form errors has been added.
 - The footer has been removed.
 - The navbar has been made slimmer.
-- The wiggle animation has been removed from the main cards on `level_select.html`, `chapter_list.html`, and `topic_list.html`.
 - The subject cards grid is centered with equal space on both left and right sides of the screen.
 - A background image has been added to the `subject_list.html` page only.
 - The `h2` element on the `level_select.html` page has been moved to the navbar and its font size matches the subject `h2` in the navbar.
+- The levels on the `level_select.html` page are now listed vertically.
+- The chapters on the `chapter_list.html` page are now listed vertically.
+- The topics on the `topic_list.html` page are now listed vertically.
+- Topics on the `topic_list.html` page are clickable to show/hide the resource links.
+- The main card on the `level_select.html` page has a wiggle animation on page load.
+- The wiggle animation has been removed from the main cards on `chapter_list.html` and `topic_list.html`.
+- Increased the font size of the "Select a Level" text, and increased the font size and added a gap between the levels on the `level_select.html` page.
