@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
+{% block navbar_title %}
+  <h2>{{ chapter.name }}</h2>
+{% endblock %}
+
 {% block content %}
 <div class="center-card-container">
   <div class="card">
-    <h2>{{ chapter.name }}</h2>
     {% if topics %}
-      <div class="list-group">
+      <div class="list-group topic-list">
         {% for topic in topics %}
           <div class="list-group-item">
             <h4 class="topic-name" style="cursor: pointer;">{{ topic.name }}</h4>

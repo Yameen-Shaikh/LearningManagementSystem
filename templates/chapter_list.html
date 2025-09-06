@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
+{% block navbar_title %}
+  <h2>{{ subject.name }} - Level {{ level }}</h2>
+{% endblock %}
+
 {% block content %}
 <div class="center-card-container">
   <div class="card">
-    <h2>{{ subject.name }} - Level {{ level }}</h2>
     <h4>Chapters</h4>
     {% if chapters %}
-      <div class="list-group">
+      <div class="list-group chapter-list">
         {% for chapter in chapters %}
           <a href="{% url 'topic_list' chapter.id %}" class="list-group-item list-group-item-action">
             {{ chapter.name }}

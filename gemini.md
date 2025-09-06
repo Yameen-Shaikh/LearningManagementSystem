@@ -32,3 +32,6 @@
 - The main card on the `level_select.html` page has a wiggle animation on page load.
 - The wiggle animation has been removed from the main cards on `chapter_list.html` and `topic_list.html`.
 - Increased the font size of the "Select a Level" text, and increased the font size and added a gap between the levels on the `level_select.html` page.
+- Centered the cards on the `level_select.html`, `chapter_list.html`, and `topic_list.html` pages.
+- Increased the size of the cards on the `level_select.html`, `chapter_list.html`, and `topic_list.html` pages to be 50% of the viewport width.
+- Added space between the navbar and the subject cards grid on the `subject_list.html` page.

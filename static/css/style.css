@@ -1,8 +1,8 @@
 /* Base Colors - Pastel Neumorphic Theme */
 :root {
   --primary-background: #e9e8e3; /* light beige/grey */
-  --surface-panels-1: #fdfcf9;   /* soft white */
-  --surface-panels-2: #f2f1ed;   /* light cream */
+  --surface-panels-1: #fefcf0;   /* soft white */
+  --surface-panels-2: #fefcf0;   /* light cream */
   --text-primary: #2e2e2e;       /* dark text */
   --text-secondary: #666666;     
   --text-tertiary: #8a8a8a;
@@ -165,7 +165,8 @@ hr {
 
 .navbar-center {
     flex-grow: 1;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .navbar-center h2 {
@@ -256,4 +257,13 @@ hr {
   justify-content: center;
   align-items: center;
   min-height: 80vh;
+}
+
+.chapter-list .list-group-item {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.topic-list .topic-name {
+  font-size: 22px;
 }
