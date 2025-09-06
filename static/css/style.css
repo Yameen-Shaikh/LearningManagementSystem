@@ -264,6 +264,24 @@ hr {
   margin-bottom: 10px;
 }
 
-.topic-list .topic-name {
-  font-size: 22px;
+.topic-card .topic-name {
+  font-size: 26px;
+  color: #e2a98b;
+  transition: color 0.3s ease-in-out;
+}
+
+.topic-card .topic-name:hover {
+  color: var(--accent-2);
+}
+
+.topic-cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px; /* Add some space from the navbar */
+}
+
+.topic-card {
+  margin-bottom: 20px;
 }

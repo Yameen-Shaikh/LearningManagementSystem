@@ -5,12 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="center-card-container">
-  <div class="card">
+<div class="topic-cards-container">
     {% if topics %}
-      <div class="list-group topic-list">
         {% for topic in topics %}
-          <div class="list-group-item">
+          <div class="card topic-card wiggle-on-load">
             <h4 class="topic-name" style="cursor: pointer;">{{ topic.name }}</h4>
             <div class="links" style="display: none;">
               {% if topic.links.all %}
@@ -25,11 +23,11 @@
             </div>
           </div>
         {% endfor %}
-      </div>
     {% else %}
-      <p>No topics found for this chapter.</p>
+      <div class="card">
+        <p>No topics found for this chapter.</p>
+      </div>
     {% endif %}
-  </div>
 </div>
 {% endblock %}
 

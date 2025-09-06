@@ -35,3 +35,10 @@
 - Centered the cards on the `level_select.html`, `chapter_list.html`, and `topic_list.html` pages.
 - Increased the size of the cards on the `level_select.html`, `chapter_list.html`, and `topic_list.html` pages to be 50% of the viewport width.
 - Added space between the navbar and the subject cards grid on the `subject_list.html` page.
+- Moved the `h2` elements on the `chapter_list.html` and `topic_list.html` pages to the navbar.
+- Centered the `h2` element in the navbar.
+- Changed the card colors to `#fefcf0`.
+- Increased the font size of chapter and topic cards.
+- Changed the topic text color to `#e2a98b` and added a hover effect.
+- Separated topics into individual cards.
+- Added a wiggle effect to chapter and topic cards.
