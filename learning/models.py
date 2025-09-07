@@ -1,19 +1,24 @@
+import re
 from django.db import models
 from django.contrib.auth.models import User
 import re
 import requests
 from urllib.parse import urlsplit
 
-def get_video_id(url):
-    video_id = None
-    if 'youtu.be' in url:
-        path = urlsplit(url).path
-        video_id = path.split('/')[-1]
-    else:
-        match = re.search(r'(?:v=|/)([0-9A-Za-z_-]{11}).*', url)
+def get_video_id(url: str):
+    """
+    Extracts YouTube video ID from different YouTube URL formats.
+    Supports: normal videos, shorts, embed, etc.
+    """
+    regex_patterns = [
+        r'(?:v=|\/)([0-9A-Za-z_-]{11}).*',  # watch?v=, embed/, etc.
+        r'youtu\.be\/([0-9A-Za-z_-]{11})',  # youtu.be short links
+    ]
+    for pattern in regex_patterns:
+        match = re.search(pattern, url)
         if match:
-            video_id = match.group(1)
-    return video_id
+            return match.group(1)
+    return None
 
 class Subject(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -55,19 +60,31 @@ class Link(models.Model):
         video_id = get_video_id(self.url)
         if video_id:
             self.video_id = video_id
+
+            # ✅ Check if embeddable
+            embed_url = f"https://www.youtube.com/embed/{video_id}"
+            try:
+                embed_check = requests.get(embed_url)
+                if embed_check.status_code != 200:
+                    print(f"Embedding disabled for video {video_id}")
+                    return  # Don’t save unplayable videos
+            except Exception as e:
+                print(f"Error checking embed: {e}")
+                return
+
+            # ✅ Fetch oEmbed data
             try:
                 oembed_url = f'https://www.youtube.com/oembed?url={self.url}&format=json'
                 response = requests.get(oembed_url)
-                response.raise_for_status() # Raise an exception for HTTP errors
+                response.raise_for_status()
                 data = response.json()
+
                 self.title = data.get('title', 'Unknown Title')
                 self.thumbnail_url = data.get('thumbnail_url')
-                # oEmbed for YouTube doesn't provide a clean description.
-                # The 'html' field contains the full embed code.
-                # We could try to parse it, but for now, we'll leave the description empty.
-                self.description = data.get('author_name') # Using author name as description for now
+                self.description = data.get('author_name')  # fallback
             except requests.exceptions.RequestException as e:
                 print(f'Error fetching video title: {e}')
             except Exception as e:
                 print(f'Error adding video: {e}')
+
         super().save(*args, **kwargs)
