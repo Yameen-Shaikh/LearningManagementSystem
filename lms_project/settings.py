@@ -124,3 +124,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+YOUTUBE_API_KEY = os.environ.get("AIzaSyDUQk9mplk5rEQR7fD2CFICsQxG2CEBj-I")
