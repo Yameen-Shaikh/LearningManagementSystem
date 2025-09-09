@@ -1,9 +1,9 @@
 import re
 from django.db import models
 from django.contrib.auth.models import User
-import re
 import requests
 from urllib.parse import urlsplit
+from django.core.exceptions import ValidationError
 
 def get_video_id(url: str):
     """
@@ -56,28 +56,29 @@ class Link(models.Model):
     def __str__(self):
         return f"Link for {self.topic.name}"
 
+    def clean(self):
+        if self.url:
+            video_id = get_video_id(self.url)
+            if video_id:
+                self.video_id = video_id
+                try:
+                    oembed_url = f'https://www.youtube.com/oembed?url={self.url}&format=json'
+                    response = requests.get(oembed_url)
+                    response.raise_for_status()
+                    data = response.json()
+
+                    self.title = data.get('title')
+                    self.thumbnail_url = data.get('thumbnail_url')
+                    self.description = data.get('author_name')
+
+                    if not self.title or not self.thumbnail_url:
+                        raise ValidationError(f"Could not retrieve essential oEmbed data for {self.url}. The video may be private or deleted.")
+
+                except requests.exceptions.RequestException as e:
+                    raise ValidationError(f'Error fetching oEmbed data for {self.url}: {e}') from e
+            else:
+                raise ValidationError("Could not extract video ID from the URL. Please use a valid YouTube URL.")
+
     def save(self, *args, **kwargs):
-        video_id = get_video_id(self.url)
-        if video_id:
-            self.video_id = video_id
-            try:
-                oembed_url = f'https://www.youtube.com/oembed?url={self.url}&format=json'
-                response = requests.get(oembed_url)
-                response.raise_for_status()  # This will raise an HTTPError for 4xx/5xx status
-                data = response.json()
-
-                self.title = data.get('title')
-                self.thumbnail_url = data.get('thumbnail_url')
-                self.description = data.get('author_name')
-
-                if not self.title or not self.thumbnail_url:
-                    # Don't save if we didn't get the essential data
-                    print(f"Could not retrieve essential oEmbed data for {self.url}")
-                    return
-
-            except requests.exceptions.RequestException as e:
-                print(f'Error fetching oEmbed data for {self.url}: {e}')
-                # Don't save the link if we can't get the data
-                return
-        
+        # The admin calls full_clean() before save, so our clean() method will be run.
         super().save(*args, **kwargs)
