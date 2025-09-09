@@ -72,6 +72,17 @@ class Link(models.Model):
                 except Exception as e:
                     print(f"Error fetching YouTube API data for {self.url}: {e}")
                     pass
+
+                    # ✅ Always ensure fallback thumbnail, even if API fails or no key
+                    if not self.thumbnail_url:
+                        self.thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+
+                except Exception as e:
+                    print(f"Error fetching YouTube API data for {self.url}: {e}")
+                    # Fallback thumbnail even if API call fails
+                    if not self.thumbnail_url:
+                        self.thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+
             else:
                 raise ValidationError(
                     "Could not extract video ID from the URL. Please use a valid YouTube URL."

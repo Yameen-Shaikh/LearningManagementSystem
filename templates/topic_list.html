@@ -14,11 +14,15 @@
           {% for link in topic.links.all %}
             <a href="#" class="topic-list-item" data-video-id="{{ link.video_id }}">
               <div class="topic-list-thumbnail">
-                <img src="{{ link.thumbnail_url|default_if_none:'' }}" alt="{{ link.title|default_if_none:'' }}">
+                {% if link.thumbnail_url %}
+                  <img src="{{ link.thumbnail_url }}" alt="{{ link.title|default:'YouTube Video' }}">
+                {% else %}
+                  <img src="https://img.youtube.com/vi/{{ link.video_id }}/hqdefault.jpg" alt="{{ link.title|default:'YouTube Video' }}">
+                {% endif %}
               </div>
               <div class="topic-list-content">
-                <h5>{{ link.title|default_if_none:'' }}</h5>
-                <p>{{ link.description|default_if_none:'' }}</p>
+                <h5>{{ link.title|default:"Untitled Video" }}</h5>
+                <p>{{ link.description|default:"No description available." }}</p>
               </div>
             </a>
           {% endfor %}
