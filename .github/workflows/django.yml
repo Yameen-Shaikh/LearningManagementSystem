@@ -39,4 +39,4 @@ jobs:
         run: |
           curl -X POST \
           -H "Authorization: Token ${{ secrets.PA_API_TOKEN }}" \
-          https://www.pythonanywhere.com/api/v0/user/${{ secrets.PA_USERNAME }}/webapps/<your-domain>.pythonanywhere.com/reload/
+          https://www.pythonanywhere.com/api/v0/user/${{ secrets.PA_USERNAME }}/webapps/https://smartlearning.pythonanywhere.com/.pythonanywhere.com/reload/
