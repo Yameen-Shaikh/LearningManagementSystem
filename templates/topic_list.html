@@ -5,34 +5,69 @@
 {% endblock %}
 
 {% block content %}
-<div class="center-card-container">
-    <div class="container">
-        {% for topic in topics %}
-            <div class="card topic-card">
-                <h4 class="topic-name">{{ topic.name }}</h4>
-                {% if topic.links.all %}
-                    <ul class="topic-list">
-                        {% for link in topic.links.all %}
-                            <li>
-                                <a href="javascript:void(0);" class="topic-list-item video-link" data-video-id="{{ link.video_id }}">
-                                    <div class="topic-list-thumbnail">
-                                        {% if link.thumbnail_url %}
-                                            <img src="{{ link.thumbnail_url }}" alt="{{ link.title }}">
-                                        {% endif %}
-                                    </div>
-                                    <div class="topic-list-content">
-                                        <h5>{{ link.title }}</h5>
-                                        <p>{{ link.description|truncatewords:20 }}</p>
-                                    </div>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No links for this topic.</p>
-                {% endif %}
-            </div>
-        {% endfor %}
+<div class="topic-cards-container">
+  {% for topic in topics %}
+    <div class="card topic-card wiggle-on-load">
+      <h4 class="topic-name">{{ topic.name }}</h4>
+      {% if topic.links.all %}
+        <div class="topic-list">
+          {% for link in topic.links.all %}
+            <a href="#" class="topic-list-item" data-video-id="{{ link.video_id }}">
+              <div class="topic-list-thumbnail">
+                <img src="{{ link.thumbnail_url }}" alt="{{ link.title }}">
+              </div>
+              <div class="topic-list-content">
+                <h5>{{ link.title }}</h5>
+                <p>{{ link.description }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No resources for this topic yet.</p>
+      {% endif %}
     </div>
+  {% endfor %}
 </div>
+
+<!-- Video Modal -->
+<div id="videoModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('videoModal');
+    const modalFrame = document.getElementById('videoFrame');
+    const closeBtn = document.querySelector('.modal .close');
+
+    document.querySelectorAll('.topic-list-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const videoId = this.dataset.videoId;
+            if (videoId) {
+                modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                modal.style.display = 'block';
+            }
+        });
+    });
+
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        modalFrame.src = '';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            modalFrame.src = '';
+        }
+    });
+});
+</script>
 {% endblock %}

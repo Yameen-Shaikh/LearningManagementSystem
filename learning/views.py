@@ -57,5 +57,3 @@ def topic_list(request, chapter_id):
     topics = chapter.topic_set.all()
     return render(request, 'topic_list.html', {'chapter': chapter, 'topics': topics})
 
-def video_player(request, video_id):
-    return render(request, 'video_player.html', {'video_id': video_id})
