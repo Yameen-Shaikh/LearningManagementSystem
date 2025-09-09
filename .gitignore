@@ -8,3 +8,6 @@ db.sqlite3
 
 # Static files
 staticfiles/
+
+# VS Code
+.vscode/

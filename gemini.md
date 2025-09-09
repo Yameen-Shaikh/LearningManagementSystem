@@ -42,3 +42,6 @@
 - Changed the topic text color to `#e2a98b` and added a hover effect.
 - Separated topics into individual cards.
 - Added a wiggle effect to chapter and topic cards.
+- Refactored `Link.save()` to improve fetching of YouTube video details.
+- Set `DEBUG=True` in settings for development.
+- Updated topic list template to handle missing link details gracefully.

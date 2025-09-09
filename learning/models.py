@@ -60,31 +60,24 @@ class Link(models.Model):
         video_id = get_video_id(self.url)
         if video_id:
             self.video_id = video_id
-
-            # ✅ Check if embeddable
-            embed_url = f"https://www.youtube.com/embed/{video_id}"
-            try:
-                embed_check = requests.get(embed_url)
-                if embed_check.status_code != 200:
-                    print(f"Embedding disabled for video {video_id}")
-                    return  # Don’t save unplayable videos
-            except Exception as e:
-                print(f"Error checking embed: {e}")
-                return
-
-            # ✅ Fetch oEmbed data
             try:
                 oembed_url = f'https://www.youtube.com/oembed?url={self.url}&format=json'
                 response = requests.get(oembed_url)
-                response.raise_for_status()
+                response.raise_for_status()  # This will raise an HTTPError for 4xx/5xx status
                 data = response.json()
 
-                self.title = data.get('title', 'Unknown Title')
+                self.title = data.get('title')
                 self.thumbnail_url = data.get('thumbnail_url')
-                self.description = data.get('author_name')  # fallback
-            except requests.exceptions.RequestException as e:
-                print(f'Error fetching video title: {e}')
-            except Exception as e:
-                print(f'Error adding video: {e}')
+                self.description = data.get('author_name')
 
+                if not self.title or not self.thumbnail_url:
+                    # Don't save if we didn't get the essential data
+                    print(f"Could not retrieve essential oEmbed data for {self.url}")
+                    return
+
+            except requests.exceptions.RequestException as e:
+                print(f'Error fetching oEmbed data for {self.url}: {e}')
+                # Don't save the link if we can't get the data
+                return
+        
         super().save(*args, **kwargs)
