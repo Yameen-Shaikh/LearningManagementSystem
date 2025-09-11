@@ -59,34 +59,19 @@ class Link(models.Model):
     def __str__(self):
         return f"Link for {self.topic.name}"
 
-    def clean(self):
-        if self.url:
+    def save(self, *args, **kwargs):
+        if self.url and ("youtube.com" in self.url or "youtu.be" in self.url):
             video_id = get_video_id(self.url)
             if video_id:
                 self.video_id = video_id
-                try:
-                    data = fetch_video_data(video_id)
-                    self.title = data.get("title")
-                    self.description = data.get("description")
-                    self.thumbnail_url = data.get("thumbnail_url")
-                except Exception as e:
-                    print(f"Error fetching YouTube API data for {self.url}: {e}")
-                    pass
-
-                    # ✅ Always ensure fallback thumbnail, even if API fails or no key
-                    if not self.thumbnail_url:
-                        self.thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
-
-                except Exception as e:
-                    print(f"Error fetching YouTube API data for {self.url}: {e}")
-                    # Fallback thumbnail even if API call fails
-                    if not self.thumbnail_url:
-                        self.thumbnail_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
-
-            else:
-                raise ValidationError(
-                    "Could not extract video ID from the URL. Please use a valid YouTube URL."
+                data = fetch_video_data(video_id)
+                self.title = data.get("title", "Untitled Video")
+                description = data.get("description", "No description available.")
+                self.description = (description.split('. ')[0] + '.') if '. ' in description else description
+                self.thumbnail_url = data.get(
+                    "thumbnail_url", f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
                 )
+        super().save(*args, **kwargs)
 
 
 class Subject(models.Model):
