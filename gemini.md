@@ -45,3 +45,8 @@
 - Refactored `Link.save()` to improve fetching of YouTube video details.
 - Set `DEBUG=True` in settings for development.
 - Updated topic list template to handle missing link details gracefully.
+- Fixed a bug where video details were not being fetched due to incorrect API key configuration.
+- The `Link` model now automatically fetches YouTube video details (title, description, thumbnail) when a new link is created.
+- The video description is now truncated to the first sentence to keep it short and concise.
+- The `topic_list.html` template has been simplified.
+- A new migration has been added for the `Link` model.

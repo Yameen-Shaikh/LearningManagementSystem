@@ -4,32 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Subject, Chapter, Topic
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
-from googleapiclient.discovery import build
-from django.conf import settings
 
-def get_youtube_video_details(video_id: str):
-    api_key = settings.YOUTUBE_API_KEY
-    youtube = build("youtube", "v3", developerKey=api_key)
-
-    request = youtube.videos().list(
-        part="snippet,contentDetails,statistics",
-        id=video_id,
-    )
-    response = request.execute()
-
-    if "items" not in response or not response["items"]:
-        return None  # video not found
-
-    video = response["items"][0]
-    return {
-        "title": video["snippet"]["title"],
-        "description": video["snippet"]["description"],
-        "thumbnail": video["snippet"]["thumbnails"]["high"]["url"],
-        "published_at": video["snippet"]["publishedAt"],
-        "duration": video["contentDetails"]["duration"],
-        "views": video["statistics"].get("viewCount"),
-        "likes": video["statistics"].get("likeCount"),
-    }
 
 
 def register_view(request):
